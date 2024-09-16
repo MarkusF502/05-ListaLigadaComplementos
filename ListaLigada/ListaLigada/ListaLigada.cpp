@@ -69,7 +69,7 @@ void menu()
 
 void inicializar()
 {
-	// se a lista j� possuir elementos
+	// se a lista já possuir elementos
 // libera a memoria ocupada
 	NO* aux = primeiro;
 	while (aux != NULL) {
@@ -128,25 +128,82 @@ void inserirElemento()
 	{
 		primeiro = novo;
 	}
-	else
-	{
-		// procura o final da lista
-		NO* aux = primeiro;
-		while (aux->prox != NULL) {
-			aux = aux->prox;
-		}
-		aux->prox = novo;
-	}
+	else {
+    NO* aux = primeiro;
+    bool elementoRepetido = false;
+
+    while (aux != NULL) {
+        if (aux->valor == novo->valor) {  
+            elementoRepetido = true;
+            break;
+        }
+        aux = aux->prox;
+    }
+
+    if (elementoRepetido) {
+        cout << "Este elemento já existe na lista" << endl;
+        return;
+    }
+
+    aux = primeiro;  
+    while (aux->prox != NULL) {
+        aux = aux->prox;  
+    }
+
+    aux->prox = novo;  
 }
 
+}
+// ExcluirElemento e buscarElemento do último exercício;
 void excluirElemento()
 {
+	if (primeiro == NULL) {
+		cout << "A lista esta vazia" << endl;
+		return;
+	}
+	 int busca;
+    cout << "Digite um elemento para excluí-lo: ";
+    cin >> busca;
 
+    NO* atual = primeiro;
+    NO* anterior = NULL;
+    while (atual != NULL && atual->valor != busca) {
+        anterior = atual;
+        atual = atual->prox;
+    }
+    if (atual == NULL) {
+        cout << "Elemento não encontrado na lista." << endl;
+        return;
+    }
+    if (atual == primeiro) {
+        primeiro = atual->prox;
+    }
+    else {
+        anterior->prox = atual->prox;
+    }
+    free(atual);
+    cout << "Elemento excluído com sucesso!" << endl;
 }
 
 void buscarElemento()
 {
+	if (primeiro == NULL) {
+		cout << "A lista esta vazia" << endl;
+} else{
+		int busca;
+		cout << "Digite um elemento para efetuar a busca" << endl;
+		cin >> busca;
+		NO* posicao = posicaoElemento(busca);
+	
+
+		if (posicaoElemento(busca) == NULL) {
+			cout << "Este elemento nao existe na lista." << endl;
+		}
+		else {
+			cout << "Este elemento se encontra na posicao " << posicao << endl;
+		}
+	}
+	
 
 }
-
 
